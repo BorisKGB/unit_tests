@@ -42,9 +42,20 @@ public class Calculator {
 
     // Нужно написать в калькуляторе метод вычисления суммы покупки со скидкой и проверить его, используя AssertJ
     // Примерная сигнатура и тело метода:
-    public static double calculatingDiscount(double purchaseAmount, int discountAmount) {
+    /**
+     * @param purchaseAmount сумма покупки
+     * @param discountAmount размер скидки
+     * @return сумма покупки со скидкой
+     *
+     * @throws ArithmeticException if discountAmount not in range [0 .. 100] or purchaseAmount <= 0
+     */
+    public static double calculatingDiscount(double purchaseAmount, int discountAmount) throws ArithmeticException {
         // purchaseAmount - сумма покупки
         // discountAmount - размер скидки
-        return 0; // Метод должен возвращать сумму покупки со скидкой
+        if (discountAmount < 0 || discountAmount > 100)
+            throw new ArithmeticException("discountAmount must be in range [0 .. 100]");
+        if (purchaseAmount <= 0)
+            throw new ArithmeticException("purchaseAmount must be > 0");
+        return purchaseAmount / 100 * (100-discountAmount); // Метод должен возвращать сумму покупки со скидкой
     }
 }

@@ -73,5 +73,17 @@ public class CalculatorTest {
         // }
         //   assert 0 == ru.study.seminar1.Calculator.Calculator.calculation(2, 6, '+');
         //    assertThat(ru.study.seminar1.Calculator.Calculator.calculation(2, 6, '+')).isEqualTo(0);
+
+        // Check main logic
+        assertThat(Calculator.calculatingDiscount(100, 15)).isEqualTo(85d);
+        // Check exceptions
+        assertThatThrownBy(() -> Calculator.calculatingDiscount(100, -1))
+                .isInstanceOf(ArithmeticException.class);
+        assertThatThrownBy(() -> Calculator.calculatingDiscount(100, 150))
+                .isInstanceOf(ArithmeticException.class);
+        assertThatThrownBy(() -> Calculator.calculatingDiscount(0, 20))
+                .isInstanceOf(ArithmeticException.class);
+        assertThatThrownBy(() -> Calculator.calculatingDiscount(-5, 23))
+                .isInstanceOf(ArithmeticException.class);
     }
 }
