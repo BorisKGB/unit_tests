@@ -1,4 +1,4 @@
-package seminars.first.Shop;
+package ru.study.seminar1.Shop;
 
 public class ShopTest {
 
