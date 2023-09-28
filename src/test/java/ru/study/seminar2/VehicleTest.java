@@ -1,56 +1,75 @@
 package ru.study.seminar2;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class VehicleTest {
 
+    Car car;
+    Motorcycle motorcycle;
+
+    @BeforeEach
+    void resetVehicles(){
+        car = new Car("Company", "model", 1500);
+        motorcycle = new Motorcycle("Company", "model2", 1501);
+    }
+
     @Test
     void CarInstance() {
-        Car car = new Car("Company", "model", 1500);
         assertInstanceOf(Vehicle.class, car);
     }
 
-    @Test
-    void CarWheelCount() {
-        Car car = new Car("Company", "model", 1500);
-        assertEquals(car.getNumWheels(), 4);
+    @Nested
+    class wheelCount {
+        @Test
+        void CarWheelCount() {
+            assertEquals(car.getNumWheels(), 4);
+        }
+
+        @Test
+        void MotorcycleWheelCount() {
+            assertEquals(motorcycle.getNumWheels(), 2);
+        }
     }
 
-    @Test
-    void MotorcycleWheelCount() {
-        Motorcycle motorcycle = new Motorcycle("Company", "model2", 1501);
-        assertEquals(motorcycle.getNumWheels(), 2);
-    }
+    @Nested
+    class Speed {
+        @Nested
+        class CarSpeed {
+            @Test
+            @Order(1)
+            void driveSpeed() {
+                car.testDrive();
+                assertEquals(car.getSpeed(), 60);
+            }
 
-    @Test
-    void CarSpeed() {
-        Car car = new Car("Company", "model", 1500);
-        car.testDrive();
-        assertEquals(car.getSpeed(), 60);
-    }
+            @Test
+            @Order(2)
+            void parkSpeed() {
+                car.park();
+                assertEquals(car.getSpeed(), 0);
+            }
+        }
 
-    @Test
-    void MotorcycleSpeed() {
-        Motorcycle motorcycle = new Motorcycle("Company", "model2", 1501);
-        motorcycle.testDrive();
-        assertEquals(motorcycle.getSpeed(), 75);
-    }
+        @Nested
+        class MotorcycleSpeed {
+            @Test
+            @Order(1)
+            void driveSpeed() {
+                motorcycle.testDrive();
+                assertEquals(motorcycle.getSpeed(), 75);
+            }
 
-    @Test
-    void CarParkedSpeed() {
-        Car car = new Car("Company", "model", 1500);
-        car.testDrive();
-        car.park();
-        assertEquals(car.getSpeed(), 0);
-    }
-
-    @Test
-    void MotorcycleParkedSpeed() {
-        Motorcycle motorcycle = new Motorcycle("Company", "model2", 1501);
-        motorcycle.testDrive();
-        motorcycle.park();
-        assertEquals(motorcycle.getSpeed(), 0);
+            @Test
+            @Order(2)
+            void parkSpeed() {
+                motorcycle.park();
+                assertEquals(car.getSpeed(), 0);
+            }
+        }
     }
 }
