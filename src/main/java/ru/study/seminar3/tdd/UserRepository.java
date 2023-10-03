@@ -22,7 +22,11 @@ public class UserRepository {
     }
 
     public void logOutNonAdmins() {
-
+        for (User user : data) {
+            if (!user.isAdmin && user.isAuthenticate) {
+                user.isAuthenticate = false;
+            }
+        }
     }
 
 }
