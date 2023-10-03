@@ -22,4 +22,11 @@ class MainHWTest {
         assertFalse(testingObj.evenOddNumber(3));
         assertTrue(testingObj.evenOddNumber(2));
     }
+
+    @Test
+    void numberInInterval() {
+        assertFalse(testingObj.numberInInterval(3));
+        assertTrue(testingObj.numberInInterval(30));
+        assertFalse(testingObj.numberInInterval(110));
+    }
 }
