@@ -21,4 +21,8 @@ public class UserRepository {
         return false;
     }
 
+    public void logOutNonAdmins() {
+
+    }
+
 }
